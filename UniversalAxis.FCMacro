@@ -1,0 +1,100 @@
+import FreeCAD as App
+import FreeCADGui as Gui
+import Part
+from FreeCAD import Base
+
+
+def main():
+    document = App.newDocument('Universal Axis')
+    create_universal_axis(document, 'UniversalAxisX')
+
+    # Re-center view
+    Gui.SendMsgToActiveView('ViewFit')
+
+
+def create_universal_axis(document, name):
+    """
+    Create a universal axis object.
+    """
+    obj = document.addObject('Part::FeaturePython', name)
+    fpo = UniversalAxis(obj)
+    obj.ViewObject.Proxy = 0  # Mandatory unless ViewProvider is coded
+    document.recompute()
+    return fpo
+
+
+class UniversalAxis:
+    """
+    Modular and scalable CNC axis used to create cartesian CNC machines.
+
+    See Also:
+        https://wiki.opensourceecology.org/wiki/Universal_CNC_Axis
+    """
+
+    def __init__(self, obj):
+        """
+        Constructor
+
+        Arguments
+        ---------
+        - obj: Created with document.addObject('Part::FeaturePython', '{name}')
+        """
+        self.Type = 'OSEUniversalAxis'
+
+        obj.Proxy = self
+        tooltip = 'Length of axis corresponds to rod length.'
+        obj.addProperty('App::PropertyLength', 'Length', 'Base', tooltip)
+        obj.Length = 304.80
+
+    def execute(self, obj):
+        """
+        Called on document recompute
+        """
+        # Get rod length
+        rod_length = obj.Length.Value
+
+        # Define dimensions of boxes
+        box_width = 55
+        box_length = 66
+        box_height = 24
+        box_dimensions = (box_width, box_length, box_height)
+
+        # Make motor side box
+        motor_side_box = Part.makeBox(*box_dimensions)
+
+        # Make idler
+        idler_side_box = Part.makeBox(*box_dimensions)
+        idler_side_box.translate(Base.Vector(rod_length - box_width, 0, 0))
+
+        space_between_rod_and_box_edge = 10
+        half_box_height = box_height / 2
+
+        rod1_y_position = box_length - space_between_rod_and_box_edge
+
+        rod_radius = 4
+        rod1 = Part.makeCylinder(rod_radius, rod_length)
+        rod1.rotate(Base.Vector(0, 0, 0), Base.Vector(0, 1, 0), 90)
+        rod1.translate(Base.Vector(0, rod1_y_position, half_box_height))
+
+        rod2_y_position = space_between_rod_and_box_edge
+        rod2 = Part.makeCylinder(rod_radius, rod_length)
+        rod2.rotate(Base.Vector(0, 0, 0), Base.Vector(0, 1, 0), 90)
+        rod2.translate(Base.Vector(0, rod2_y_position, half_box_height))
+
+        obj.Shape = Part.makeCompound([
+            motor_side_box,
+            idler_side_box,
+            rod1,
+            rod2
+        ])
+
+    def __getstate__(self):
+        return self.Type
+
+    def __setstate__(self, state):
+        if state:
+            self.Type = state
+
+
+if __name__ == '__main__':
+    main()
