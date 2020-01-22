@@ -53,23 +53,30 @@ class UniversalAxis:
         # Get rod length
         rod_length = obj.Length.Value
 
-        # Define dimensions of boxes
-        box_width = 55
-        box_length = 66
+        # Motor side, idler side, and carriage boxes share same height
         box_height = 24
-        box_dimensions = (box_width, box_length, box_height)
+
+        # Define dimensions of motor side box
+        motor_box_width = 59.5
+        motor_box_length = 66
+        motor_side_box_dimensions = (motor_box_width, motor_box_length, box_height)
 
         # Make motor side box
-        motor_side_box = Part.makeBox(*box_dimensions)
+        motor_side_box = Part.makeBox(*motor_side_box_dimensions)
+
+        # Define dimensions of idler side box
+        idler_box_width = 55
+        idler_box_length = 66
+        idler_side_box_dimensions = (idler_box_width, idler_box_length, box_height)
 
         # Make idler
-        idler_side_box = Part.makeBox(*box_dimensions)
-        idler_side_box.translate(Base.Vector(rod_length - box_width, 0, 0))
+        idler_side_box = Part.makeBox(*idler_side_box_dimensions)
+        idler_side_box.translate(Base.Vector(rod_length - idler_box_width, 0, 0))
 
         space_between_rod_and_box_edge = 10
         half_box_height = box_height / 2
 
-        rod1_y_position = box_length - space_between_rod_and_box_edge
+        rod1_y_position = idler_box_length - space_between_rod_and_box_edge
 
         rod_radius = 4
         rod1 = Part.makeCylinder(rod_radius, rod_length)
