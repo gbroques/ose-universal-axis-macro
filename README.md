@@ -12,3 +12,11 @@ This FreeCAD macro creates Universal Axis objects allowing the user to adjust pr
 ```
 ./link_macro.sh
 ```
+
+## Python Usage
+
+```python
+from universalaxis import UniversalAxisFactory
+universal_axis_factory = UniversalAxisFactory(App.ActiveDocument)
+universal_axis = universal_axis_factory.create('UniversalAxisX')
+```

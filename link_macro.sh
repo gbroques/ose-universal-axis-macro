@@ -18,6 +18,6 @@ macro_dir=`freecad -c find_macro_dir.py | tail -1`
 # Clean-up temporary python script and .pyc file
 rm find_macro_dir.py*
 
-# Soft link macro from repositiory to user's default FreeCAD macro directory
+# Soft link macro and package from repositiory to user's default FreeCAD macro directory
 ln -s $(pwd)/UniversalAxis.FCMacro $macro_dir/UniversalAxis.FCMacro
-
+ln -s $(pwd)/universalaxis $macro_dir/universalaxis
