@@ -20,3 +20,21 @@ from universalaxis import UniversalAxisFactory
 universal_axis_factory = UniversalAxisFactory(App.ActiveDocument)
 universal_axis = universal_axis_factory.create('UniversalAxisX')
 ```
+
+## FreeCAD Version Information
+Tested and developed with the following FreeCAD version:
+
+```
+OS: Linux
+Word size of OS: 64-bit
+Word size of FreeCAD: 64-bit
+Version: 0.18.16093 (Git)
+Build type: Unknown
+Branch: master
+Hash: 690774c0effe4fd7b8d2b5e2fb2b8c8d145e21ce
+Python version: 2.7.12
+Qt version: 4.8.7
+Coin version: 4.0.0a
+OCC version: 7.0.0
+Locale: English/UnitedStates (en_US)
+```
