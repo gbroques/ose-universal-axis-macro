@@ -23,6 +23,8 @@ universal_axis = create_universal_axis(document, 'UniversalAxis')
 document.recompute()
 ```
 
+If you need more fine-grained control over the geometry of the Universal Axis object, then you can [explode the compound](https://www.freecadweb.org/wiki/Part_ExplodeCompound).
+
 ## FreeCAD Version Information
 Tested and developed with the following FreeCAD version:
 
