@@ -1,12 +1,12 @@
 import FreeCAD as App
 import FreeCADGui as Gui
-from universalaxis import UniversalAxisFactory
+from universal_axis import create_universal_axis
 
 
 def main():
     document = App.newDocument('Universal Axis')
-    universal_axis_factory = UniversalAxisFactory(document)
-    universal_axis = universal_axis_factory.create('UniversalAxisX')
+    universal_axis = create_universal_axis(document, 'UniversalAxis')
+    document.recompute()
 
     # Re-center view
     Gui.SendMsgToActiveView('ViewFit')

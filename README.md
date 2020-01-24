@@ -16,9 +16,11 @@ This FreeCAD macro creates Universal Axis objects allowing the user to adjust pr
 ## Python Usage
 
 ```python
-from universalaxis import UniversalAxisFactory
-universal_axis_factory = UniversalAxisFactory(App.ActiveDocument)
-universal_axis = universal_axis_factory.create('UniversalAxisX')
+from universal_axis import create_universal_axis
+
+document = App.ActiveDocument
+universal_axis = create_universal_axis(document, 'UniversalAxis')
+document.recompute()
 ```
 
 ## FreeCAD Version Information

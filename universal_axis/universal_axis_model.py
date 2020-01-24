@@ -23,7 +23,7 @@ class UniversalAxisModel:
         # Length property
         length_tooltip = 'Length of axis corresponds to rod length.'
         obj.addProperty('App::PropertyLength', 'Length', 'Base', length_tooltip)
-        obj.Length = 304.80
+        obj.Length = (304, 100, 1000, 1)
 
         # Rod Diameter property
         rod_diameter_tooltip = 'Diameter of rod.'
