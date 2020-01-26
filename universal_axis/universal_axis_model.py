@@ -109,11 +109,11 @@ class UniversalAxisModel:
 
 
 def is_cube_edge_oriented_in_z_plane(edge):
-    first_point = edge.firstVertex().Point
+    first_point = edge.valueAt(edge.FirstParameter)
     x1 = first_point.x
     y1 = first_point.y
 
-    last_point = edge.lastVertex().Point
+    last_point = edge.valueAt(edge.LastParameter)
     x2 = last_point.x
     y2 = last_point.y
 
